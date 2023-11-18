@@ -19,7 +19,6 @@ def bfs(grid):
 
     return dp[H-1][W-1]
 
-
 def solve(f):
     grid = []
     for line in open(f).read().splitlines():
