@@ -2,15 +2,13 @@ def solve(f):
     total = 0
     for i, line in enumerate(open(f).read().splitlines()):
         _, s = line.split(': ')
-        good = True
+        possible = True
         for set in s.split('; '):
-            colors = {}
-            for x, c in map(lambda x: x.split(' '), set.split(', ')):
-                colors[c] = int(x)
+            colors = {color: int(x) for x, color in [pair.split(' ') for pair in set.split(', ')]}
             if colors.get('red', 0) > 12 or colors.get('green', 0) > 13 or colors.get('blue', 0) > 14:
-                good = False
+                possible = False
                 break
-        if good:
+        if possible:
             total += i + 1
     return total
 
@@ -18,12 +16,12 @@ def solve(f):
 def solve2(f):
     total = 0
     for line in open(f).read().splitlines():
-        s = ' '.join(line.split(' ')[2:])
+        _, s = line.split(': ')
         colors = {}
         for set in s.split('; '):
-            for x, c in map(lambda x: x.split(' '), set.split(', ')):
-                colors[c] = max(colors.get(c, 0), int(x))
-        total += colors.get('red', 0) * colors('green', 0) * colors.get('blue', 0)
+            for x, color in [pair.split(' ') for pair in set.split(', ')]:
+                colors[color] = max(colors.get(color, 0), int(x))
+        total += colors.get('red', 0) * colors.get('green', 0) * colors.get('blue', 0)
     return total
     
 
