@@ -36,7 +36,7 @@ def solve(f):
 
     s = 0
     for part in parts.splitlines():
-        part = {k:int(v) for k,v in [x.split('=') for x in part.strip('{}').split(',')]}
+        part = eval(f"dict({part.strip('{}')})")
         if process_part(w, part):
             s += sum(part.values())
 
